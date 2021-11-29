@@ -1,0 +1,44 @@
+FROM ubuntu:focal
+
+# Install dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    # requirements for apt-key \
+    gnupg \
+    firefox-geckodriver \
+    python3-tk \
+    # Install vnc stuff \
+    bspwm novnc python3-pip xfonts-base supervisor x11vnc xvfb fswatch && \
+    \
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
+    \
+    apt-get update && apt-get install -y --no-install-recommends unzip google-chrome-stable && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    \
+    CHROMEVER=$(google-chrome --product-version | grep -o "[^\.]*\.[^\.]*\.[^\.]*") && \
+    DRIVERVER=$(wget -O - -q "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROMEVER") && \
+    wget -q --continue -P /chromedriver "http://chromedriver.storage.googleapis.com/$DRIVERVER/chromedriver_linux64.zip" && \
+    unzip /chromedriver/chromedriver* -d /chromedriver && \
+    install /chromedriver/chromedriver /usr/bin/chromedriver && \
+    \
+    groupadd -r pwuser -g 1000 && \
+    useradd -r -g pwuser -G audio,video pwuser -u 1000 && \
+    mkdir -p /home/pwuser && \
+    chown -R pwuser:pwuser /home/pwuser
+
+USER pwuser
+ADD ./requirements-SeleniumLibrary.txt /home/pwuser/requirements.txt
+RUN python3 -m pip install --user robotframework-seleniumlibrary && \
+    python3 -m pip install --user -r /home/pwuser/requirements.txt
+USER root
+
+ADD ./bspwmrc /home/pwuser/.config/bspwm/bspwmrc
+ADD ./supervisord.conf /etc/supervisord.conf
+ADD ./run.sh /bin/run.sh
+
+ADD ./robot.sh /bin/robot.sh
+ADD ./index.html /usr/share/novnc/index.html
+
+CMD [ "/bin/run.sh" ]

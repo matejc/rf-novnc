@@ -12,4 +12,9 @@ chmod -R o+rw /usr/share/novnc/output
 trap 'kill $(cat /tmp/supervisord.pid)' EXIT
 trap 'exit 0' SIGINT SIGTERM
 
+if [ -f /home/pwuser/requirements.txt ]
+then
+    su - pwuser -c "python3 -m pip install --user -r /home/pwuser/requirements.txt"
+fi
+
 exec supervisord --configuration=/etc/supervisord.conf

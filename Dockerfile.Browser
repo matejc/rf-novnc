@@ -11,11 +11,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-USER pwuser
-ADD ./requirements-Browser.txt /home/pwuser/requirements.txt
-RUN python3 -m pip install --user -r /home/pwuser/requirements.txt
-USER root
-
 ADD ./bspwmrc /home/pwuser/.config/bspwm/bspwmrc
 ADD ./supervisord.conf /etc/supervisord.conf
 ADD ./run.sh /bin/run.sh

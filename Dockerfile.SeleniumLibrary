@@ -29,9 +29,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     chown -R pwuser:pwuser /home/pwuser
 
 USER pwuser
-ADD ./requirements-SeleniumLibrary.txt /home/pwuser/requirements.txt
-RUN python3 -m pip install --user robotframework-seleniumlibrary && \
-    python3 -m pip install --user -r /home/pwuser/requirements.txt
+RUN python3 -m pip install --user robotframework-seleniumlibrary
 USER root
 
 ADD ./bspwmrc /home/pwuser/.config/bspwm/bspwmrc

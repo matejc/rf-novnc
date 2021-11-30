@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ADD ./bspwmrc /home/pwuser/.config/bspwm/bspwmrc
 ADD ./supervisord.conf /etc/supervisord.conf
 ADD ./run.sh /bin/run.sh
+ADD ./exit.sh /bin/exit.sh
 
 ADD ./robot.sh /bin/robot.sh
 ADD ./index.html /usr/share/novnc/index.html

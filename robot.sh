@@ -23,3 +23,5 @@ else
     robot $ROBOT_ARGS -d $ROBOT_OUTPUT $ROBOT_ROOT_PATH/tests
 
 fi
+
+touch /home/pwuser/exit

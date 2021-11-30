@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  robot:
+    build:
+      context: .
+      dockerfile: "Dockerfile.${ROBOT_LIBRARY:-Browser}"
+    volumes:
+      - "./examples/${ROBOT_LIBRARY:-Browser}:/home/pwuser/source:ro"
+      - "./requirements-${ROBOT_LIBRARY:-Browser}.txt:/home/pwuser/requirements.txt:ro"
+    environment:
+      ROBOT_WATCH: 1
+    ports:
+      - 6080:6080
+    shm_size: 2g
+    security_opt:
+      - label=disable

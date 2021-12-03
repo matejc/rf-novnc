@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 PATH="/home/pwuser/.local/bin:$PATH"
 ROBOT_OUTPUT="${ROBOT_OUTPUT:-/usr/share/novnc/output}"
@@ -15,7 +14,7 @@ then
     while true
     do
         fswatch --event=Updated --insensitive --exclude='.*\.log$' --recursive --one-event $ROBOT_ROOT_PATH >/dev/null
-        robot $ROBOT_ARGS -d $ROBOT_OUTPUT $ROBOT_ROOT_PATH/tests || true
+        robot $ROBOT_ARGS -d $ROBOT_OUTPUT $ROBOT_ROOT_PATH/tests
     done
 
 else
@@ -24,4 +23,4 @@ else
 
 fi
 
-touch /home/pwuser/exit
+echo "$?" > /tmp/exit

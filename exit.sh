@@ -4,7 +4,7 @@ set -e
 trap 'kill $(cat /tmp/supervisord.pid)' EXIT
 trap 'exit 0' SIGINT SIGTERM
 
-while [ ! -f /home/pwuser/exit ]
+while [ ! -f /tmp/exit ]
 do
     sleep 1
 done

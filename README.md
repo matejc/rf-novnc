@@ -41,6 +41,9 @@ Under the hood it is running X11 server and VNC setup with NoVNC to translate th
 
 ## Usage (Browser)
 
+Next examples are for Browser library, but if you need Selenium, just use corresponding Docker file and Docker tag.
+
+
 ### Build
 
 ```shell
@@ -97,6 +100,8 @@ Since the container will run several processes for its function, like X server, 
 
 
 ### Ports
+
+TCP port for NoVNC is listening on 0.0.0.0:6080 inside of container, so make sure to map that port out if you would like to see the execution.
 
 
 ## Pre-built docker images

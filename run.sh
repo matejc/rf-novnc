@@ -20,9 +20,4 @@ function exit_with_code {
 trap 'kill 0' EXIT
 trap exit_with_code SIGINT SIGTERM
 
-if [ -f /home/pwuser/requirements.txt ]
-then
-    su - pwuser -c "python3 -m pip install --user -r /home/pwuser/requirements.txt"
-fi
-
 supervisord --configuration=/etc/supervisord.conf

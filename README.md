@@ -1,5 +1,11 @@
 # Robot Framework NoVNC Docker development environment
 
+A project that makes debugging easier by having Robot Framework setup for Playwright and Selenium with included web browsers as a docker image.
+The setup also uses NoVNC accessible as web page where you can see actual execution, so that the Robot Framework does not rely on web browsers on host machine.
+
+<img src="/images/in_action.png" width="100%">
+
+
 ## Features
 
 ### Multi-library support
@@ -84,7 +90,7 @@ Set this variable to non-empty for process to watch for changes in files in the 
 
 #### ROBOT_ARGS
 
-Provide CLI arguments to the robot command. If you want to include tests with specific tags, in this example use `--include smoke` to run only tests with tag `smoke`.
+Provide CLI arguments to the robot command. If you want to include tests with specific tags. For example use `--include smoke` to run only tests with tag `smoke`.
 
 
 ### Volumes
@@ -94,6 +100,11 @@ Provide CLI arguments to the robot command. If you want to include tests with sp
 Container needs to be somehow aware of the tests that you would like to run, so for Robot Framework project files you need to mount the directory to `/home/pwuser/source`, it is expected that directory has a sub-directory called `tests`.
 
 
+#### Output
+
+For accessing output files of robot run (log and result html/xml files), mount a volume to the host directory at `/usr/share/novnc/output` in the container.
+
+
 #### Logs (debug only)
 
 Since the container will run several processes for its function, like X server, VNC, NoVNC/websockify and window manager the logs for those will go to `/home/pwuser/logs` directory.
@@ -101,7 +112,7 @@ Since the container will run several processes for its function, like X server, 
 
 ### Ports
 
-TCP port for NoVNC is listening on 0.0.0.0:6080 inside of container, so make sure to map that port out if you would like to see the execution.
+NoVNC/websockify is listening on 0.0.0.0:6080 inside of container, so make sure to map that port out if you plan to preview the execution.
 
 
 ## Pre-built docker images

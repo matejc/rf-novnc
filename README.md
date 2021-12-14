@@ -45,7 +45,7 @@ Under the hood it is running X11 server and VNC setup with NoVNC to translate th
 - Docker or Podman
 
 
-## Usage (Browser)
+## Usage
 
 Next examples are for Browser library, but if you need Selenium, just use corresponding Docker file and Docker tag.
 
@@ -55,6 +55,13 @@ Next examples are for Browser library, but if you need Selenium, just use corres
 ```shell
 $ docker build -f Dockerfile.Browser -t rf-novnc:Browser
 ```
+
+
+### Pre-built Docker images
+
+Pre-build Docker images also exist on Docker Hub.
+
+https://hub.docker.com/r/matejc/rf-novnc/tags
 
 
 ### Run once
@@ -114,7 +121,3 @@ Since the container will run several processes for its function, like X server, 
 
 NoVNC/websockify is listening on 0.0.0.0:6080 inside of container, so make sure to map that port out if you plan to preview the execution.
 
-
-## Pre-built docker images
-
-https://hub.docker.com/r/matejc/rf-novnc/tags

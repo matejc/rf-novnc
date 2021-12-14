@@ -121,3 +121,19 @@ Since the container will run several processes for its function, like X server, 
 
 NoVNC/websockify is listening on 0.0.0.0:6080 inside of container, so make sure to map that port out if you plan to preview the execution.
 
+
+## Extend Docker image
+
+In practice there is sometimes a need to extend with ex. Robot Framework modules.
+Here is the example of how to do just that:
+
+```docker
+FROM docker.io/matejc/rf-novnc:Browser
+
+USER pwuser
+
+ADD ./requirements.txt /tmp/requirements.txt
+RUN python3 -m pip install --user -r /tmp/requirements.txt
+
+USER root  # make sure that you end with seting the user back to root
+```

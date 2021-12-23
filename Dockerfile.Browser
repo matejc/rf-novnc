@@ -6,7 +6,7 @@ USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-tk \
     # Install vnc stuff \
-    bspwm novnc python3-pip xfonts-base supervisor x11vnc xvfb fswatch && \
+    bspwm novnc python3-pip xfonts-base supervisor x11vnc xvfb fswatch socat && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ADD ./bspwmrc /home/pwuser/.config/bspwm/bspwmrc
 ADD ./supervisord.conf /etc/supervisord.conf
 ADD ./run.sh /bin/run.sh
-ADD ./exit.sh /bin/exit.sh
+ADD ./http.sh /bin/http.sh
 
 ADD ./robot.sh /bin/robot.sh
 ADD ./index.html /usr/share/novnc/index.html

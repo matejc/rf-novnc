@@ -9,6 +9,8 @@ chmod -R o+rw /home/pwuser/logs
 mkdir -p /usr/share/novnc/output
 chmod -R o+rw /usr/share/novnc/output
 
+echo > /tmp/robot
+
 function exit_with_code {
     if [ -f /tmp/exit ]
     then

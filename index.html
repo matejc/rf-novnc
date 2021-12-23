@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<script type="text/javascript" language="javascript">
+function send(urlvariable) {
+    URL = "http://localhost:10081/" + urlvariable;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", URL, false);
+    xmlhttp.send();
+}
+</script>
 <html>
     <head>
         <title>Robot Framework</title>
@@ -24,6 +32,8 @@
         <button type="button" onclick="document.getElementById('content').setAttribute('src', '/vnc_lite.html')">View</button>
         <button type="button" onclick="document.getElementById('content').setAttribute('src', '/output/report.html')">Report</button>
         <button type="button" onclick="document.getElementById('content').setAttribute('src', '/output/log.html')">Log</button>
+        <button type="button" onclick="send('robot')">Run</button>
+        <button type="button" onclick="send('exit')">Terminate</button>
     </div>
 
     <embed id="content" src="/vnc_lite.html"/>

@@ -6,10 +6,12 @@ services:
       dockerfile: "Dockerfile.${ROBOT_LIBRARY:-Browser}"
     volumes:
       - "./examples/${ROBOT_LIBRARY:-Browser}:/home/pwuser/source:ro"
+      - "./logs:/home/pwuser/logs"
     environment:
       ROBOT_WATCH: 1
     ports:
       - 6080:6080
+      - 10081:10081
     shm_size: 2g
     security_opt:
       - label=disable

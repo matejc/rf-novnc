@@ -13,7 +13,7 @@ then
 
     while true
     do
-        fswatch --event=Updated --insensitive --exclude='.*\.log$' --recursive --one-event $ROBOT_ROOT_PATH >/dev/null
+        fswatch --event=Updated --insensitive --exclude='.*\.log$' --recursive --one-event $ROBOT_ROOT_PATH /tmp/robot >/dev/null
         robot $ROBOT_ARGS -d $ROBOT_OUTPUT $ROBOT_ROOT_PATH/tests
     done
 
@@ -23,4 +23,4 @@ else
 
 fi
 
-echo "$?" > /tmp/exit
+curl "http://localhost:10081/exit"

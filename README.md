@@ -137,3 +137,8 @@ RUN python3 -m pip install --user -r /tmp/requirements.txt
 
 USER root  # make sure that you end with seting the user back to root
 ```
+
+
+## TODO
+
+- rerun robot on save (kill the previous run)

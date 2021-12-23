@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     firefox-geckodriver \
     python3-tk \
     # Install vnc stuff \
-    bspwm novnc python3-pip xfonts-base supervisor x11vnc xvfb fswatch && \
+    bspwm novnc python3-pip xfonts-base supervisor x11vnc xvfb fswatch socat && \
     \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
@@ -35,7 +35,7 @@ USER root
 ADD ./bspwmrc /home/pwuser/.config/bspwm/bspwmrc
 ADD ./supervisord.conf /etc/supervisord.conf
 ADD ./run.sh /bin/run.sh
-ADD ./exit.sh /bin/exit.sh
+ADD ./http.sh /bin/http.sh
 
 ADD ./robot.sh /bin/robot.sh
 ADD ./index.html /usr/share/novnc/index.html

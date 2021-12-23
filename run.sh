@@ -10,6 +10,7 @@ mkdir -p /usr/share/novnc/output
 chmod -R o+rw /usr/share/novnc/output
 
 echo > /tmp/robot
+chmod o+rw /tmp/robot
 
 function exit_with_code {
     if [ -f /tmp/exit ]

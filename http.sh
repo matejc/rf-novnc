@@ -9,8 +9,14 @@ case $line in
     GET\ \/exit\ HTTP\/1*)
         kill $(cat /tmp/supervisord.pid)
         ;;
-    GET\ \/robot\ HTTP\/1*)
-        date > /tmp/robot
+    GET\ \/robot*\ HTTP\/1*)
+        include="$(echo "$line" | grep -Eo 'include=[^\ &]*' | sed 's|include=||' | tr -cd '[:alnum:],._-')"
+        if [ -z "$include" ]
+        then
+            echo > /tmp/robot
+        else
+            echo "--include $include" > /tmp/robot
+        fi
         ;;
     *)
         exit 2

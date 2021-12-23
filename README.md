@@ -80,8 +80,22 @@ And then check execution of Robot Framework tests in your favorite browser at ad
 
 It's meant for development or for workshops where you want to focus on Robot Framework code and not on setup of the environment.
 
+You can also click the Run button in the UI at `http://localhost:6080`
+
 ```shell
-$ docker run -ti --rm -p 6080:6080 -e ROBOT_WATCH=1 \
+$ docker run -ti --rm -p 6080:6080 -e ROBOT_RUN_MODE=watch \
+  -v ./examples/Browser:/home/pwuser/source:ro rf-novnc:Browser
+```
+
+And then check execution of Robot Framework tests in your favorite browser at address `http://localhost:6080`
+
+
+### Run on button only
+
+It's meant for when you need to run on demand by clicking on Run button at `http://localhost:6080`.
+
+```shell
+$ docker run -ti --rm -p 6080:6080 -e ROBOT_RUN_MODE=button \
   -v ./examples/Browser:/home/pwuser/source:ro rf-novnc:Browser
 ```
 
@@ -90,9 +104,13 @@ And then check execution of Robot Framework tests in your favorite browser at ad
 
 ### Environment Variables
 
-#### ROBOT_WATCH
+#### ROBOT_RUN_MODE
 
-Set this variable to non-empty for process to watch for changes in files in the volume. Container will never exit so you have to manually stop it when you are done with Ctrl+C or using `docker stop`.
+If you set the variable to `button` then you can execute the robot only on demand by clicking Run button from UI.
+
+Set this variable to `watch` for process to watch for changes in files in the volume. Container will never exit so you have to manually stop it when you are done with Ctrl+C or using `docker stop` or using `Terminate` button from UI. Keep in mind that watch mode still permits to run robot by clicking Run button.
+
+Else if you do not set the variable or set it to invalid string, then the robot will run immediately and exit after its run.
 
 
 #### ROBOT_ARGS

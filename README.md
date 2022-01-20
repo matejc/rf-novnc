@@ -69,7 +69,7 @@ https://hub.docker.com/r/matejc/rf-novnc/tags
 It's meant to run in CI/CD or in environment where you want to run robot once and optionally look at execution if the tests run longer time.
 
 ```shell
-$ docker run -ti --rm -p 6080:6080 \
+$ docker run -ti --rm -p 6080:6080 -p 10081:10081 \
   -v ./examples/Browser:/home/pwuser/source:ro rf-novnc:Browser
 ```
 
@@ -83,7 +83,7 @@ It's meant for development or for workshops where you want to focus on Robot Fra
 You can also click the Run button in the UI at `http://localhost:6080`
 
 ```shell
-$ docker run -ti --rm -p 6080:6080 -e ROBOT_RUN_MODE=watch \
+$ docker run -ti --rm -p 6080:6080 -p 10081:10081 -e ROBOT_RUN_MODE=watch \
   -v ./examples/Browser:/home/pwuser/source:ro rf-novnc:Browser
 ```
 
@@ -95,7 +95,7 @@ And then check execution of Robot Framework tests in your favorite browser at ad
 It's meant for when you need to run on demand by clicking on Run button at `http://localhost:6080`.
 
 ```shell
-$ docker run -ti --rm -p 6080:6080 -e ROBOT_RUN_MODE=button \
+$ docker run -ti --rm -p 6080:6080 -p 10081:10081 -e ROBOT_RUN_MODE=button \
   -v ./examples/Browser:/home/pwuser/source:ro rf-novnc:Browser
 ```
 
@@ -139,6 +139,8 @@ Since the container will run several processes for its function, like X server, 
 
 NoVNC/websockify is listening on 0.0.0.0:6080 inside of container, so make sure to map that port out if you plan to preview the execution.
 
+For actions like `Run` and `Terminate` button functionality, port `10081` is also needed to be published.
+
 
 ## Extend Docker image
 
@@ -157,6 +159,11 @@ USER root  # make sure that you end with seting the user back to root
 ```
 
 
-## TODO
+## Known Issues
 
-- rerun robot on save (kill the previous run)
+- When running from `podman`, you might need to add the `--security-opt label=disable` to overcome `Permission Denied` issue when robot is trying to read from volume.
+
+
+## ToDo
+
+- Rerun robot on save (kill the previous run)

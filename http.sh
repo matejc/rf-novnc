@@ -2,15 +2,18 @@
 
 set -x
 
-echo -en "HTTP/1.0 200 OK\r\n"
+echo "content-type: text/plain"
+echo
 
-read -r line
-case $line in
-    GET\ \/exit\ HTTP\/1*)
+case $DOCUMENT_URI in
+    \/exit)
         kill $(cat /tmp/supervisord.pid)
         ;;
-    GET\ \/robot*\ HTTP\/1*)
-        include="$(echo "$line" | grep -Eo 'include=[^\ &]*' | sed 's|include=||' | tr -cd '[:alnum:],._-')"
+    \/stop)
+        kill $(ps aux | grep '/home/pwuser/.local/bin/robot' | awk '{print $2}')
+        ;;
+    \/robot)
+        include="$(echo "$QUERY_STRING" | grep -Eo 'include=[^\ &]*' | sed 's|include=||' | tr -cd '[:alnum:],._-')"
         if [ -z "$include" ]
         then
             echo > /tmp/robot
@@ -22,3 +25,6 @@ case $line in
         exit 2
         ;;
 esac
+
+echo "ok"
+exit 0

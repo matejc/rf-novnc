@@ -6,10 +6,12 @@ USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-tk \
     # Install vnc stuff \
-    bspwm novnc python3-pip xfonts-base supervisor x11vnc xvfb fswatch socat && \
+    bspwm novnc python3-pip xfonts-base supervisor x11vnc xvfb fswatch fcgiwrap spawn-fcgi nginx && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+RUN usermod -a -G www-data pwuser
 
 ADD ./bspwmrc /home/pwuser/.config/bspwm/bspwmrc
 ADD ./supervisord.conf /etc/supervisord.conf
@@ -17,6 +19,7 @@ ADD ./run.sh /bin/run.sh
 ADD ./http.sh /bin/http.sh
 
 ADD ./robot.sh /bin/robot.sh
+ADD ./nginx.conf /etc/nginx/sites-enabled/default
 ADD ./index.html /usr/share/novnc/index.html
 
 CMD [ "/bin/run.sh" ]

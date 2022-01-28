@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <script type="text/javascript" language="javascript">
 function send(urlvariable) {
-    URL = "http://localhost:10081/" + urlvariable;
+    URL = "/" + urlvariable;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", URL, false);
     xmlhttp.send();
@@ -45,6 +45,7 @@ function send(urlvariable) {
         <span class="uirun">
             <input class="uielement" type="text" id="includeText" placeholder="Include Tags: foo,f00_bar-baz"></input>
             <button class="uielement" type="button" onclick="send('robot?include='+document.getElementById('includeText').value)">Run</button>
+            <button class="uielement" type="button" onclick="send('stop')">Stop</button>
         </span>
         <button class="uielement uileft" type="button" onclick="send('exit')">Terminate</button>
     </div>

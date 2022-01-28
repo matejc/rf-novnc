@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     firefox-geckodriver \
     python3-tk \
     # Install vnc stuff \
-    bspwm novnc python3-pip xfonts-base supervisor x11vnc xvfb fswatch socat && \
+    bspwm novnc python3-pip xfonts-base supervisor x11vnc xvfb fswatch fcgiwrap spawn-fcgi nginx && \
     \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     install /chromedriver/chromedriver /usr/bin/chromedriver && \
     \
     groupadd -r pwuser -g 1000 && \
-    useradd -r -g pwuser -G audio,video pwuser -u 1000 && \
+    useradd -r -g pwuser -G audio,video,www-data pwuser -u 1000 && \
     mkdir -p /home/pwuser && \
     chown -R pwuser:pwuser /home/pwuser
 
@@ -38,6 +38,7 @@ ADD ./run.sh /bin/run.sh
 ADD ./http.sh /bin/http.sh
 
 ADD ./robot.sh /bin/robot.sh
+ADD ./nginx.conf /etc/nginx/sites-enabled/default
 ADD ./index.html /usr/share/novnc/index.html
 
 CMD [ "/bin/run.sh" ]

@@ -7,11 +7,11 @@ services:
     volumes:
       - "./examples/${ROBOT_LIBRARY:-Browser}:/home/pwuser/source:ro"
       - "./logs:/home/pwuser/logs"
+      - "./output:/home/pwuser/output"
     environment:
       ROBOT_RUN_MODE: "watch"  # watch, button or anything/none for once
     ports:
-      - 6080:6080
-      - 10081:10081
+      - 6080:80
     shm_size: 2g
     security_opt:
       - label=disable

@@ -53,7 +53,7 @@ Next examples are for Browser library, but if you need Selenium, just use corres
 ### Build
 
 ```shell
-$ docker build -f Dockerfile.Browser -t rf-novnc:Browser
+$ docker build . -f Dockerfile.Browser -t rf-novnc:Browser
 ```
 
 
